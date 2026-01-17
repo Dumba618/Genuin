@@ -10,5 +10,5 @@ class Base(DeclarativeBase):
     pass
 
 async def get_db() -> AsyncSession:
-    async with async_session():
-        yield
+    async with async_session() as session:
+        yield session
