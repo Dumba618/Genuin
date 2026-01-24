@@ -23,10 +23,11 @@ def calculate_risk(body: str, user_id: int, db: Session) -> float:
         score += (1 - unique_punct / len(punct)) * 0.2
     # Burst posting: check recent posts (simplified, assume no burst for now)
     # Similarity to last post
-    last_post = db.query(models.Post).filter(models.Post.author_id == user_id).order_by(models.Post.created_at.desc()).first()
-    if last_post:
-        vectorizer = TfidfVectorizer()
-        tfidf = vectorizer.fit_transform([body, last_post.body])
-        sim = cosine_similarity(tfidf[0:1], tfidf[1:2])[0][0]
-        score += sim * 0.3
+    if db:
+        last_post = db.query(models.Post).filter(models.Post.author_id == user_id).order_by(models.Post.created_at.desc()).first()
+        if last_post:
+            vectorizer = TfidfVectorizer()
+            tfidf = vectorizer.fit_transform([body, last_post.body])
+            sim = cosine_similarity(tfidf[0:1], tfidf[1:2])[0][0]
+            score += sim * 0.3
     return min(score, 1.0)
