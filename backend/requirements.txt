@@ -9,3 +9,5 @@ python-multipart
 redis
 celery
 pytest
+httpx
+scikit-learn

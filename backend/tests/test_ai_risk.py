@@ -1,4 +1,4 @@
-from ..app.ai_risk import calculate_risk
+from app.ai_risk import calculate_risk
 
 def test_calculate_risk():
     # Mock db
