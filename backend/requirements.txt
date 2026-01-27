@@ -11,3 +11,5 @@ celery
 pytest
 httpx
 scikit-learn
+pydantic-settings
+email-validator
